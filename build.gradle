@@ -1,0 +1,43 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.galvanize'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring - JPA
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    // Spring - JDBC
+    //    implementation "org.springframework.boot:spring-boot-starter-data-jdbc"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    // ModelMapper
+    implementation "org.modelmapper:modelmapper:2.3.6"
+    // MySQL
+    runtimeOnly "mysql:mysql-connector-java"
+    // Lombok
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+    //this is for ensuring that you have a database in any situation
+    testCompile group: 'com.h2database', name: 'h2'
+}
+
+test {
+    useJUnitPlatform()
+}
